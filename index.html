@@ -379,6 +379,20 @@
   let luckyCost = 200;
 
   let snailUpgradeBought = false;
+  let achievements = {
+  firstFlight: { unlocked: false, name: "First Flight", desc: "Launch your first snail", reward: 50 },
+  distance100: { unlocked: false, name: "Century Mark", desc: "Travel 100 Peter Griffins", reward: 100 },
+  distance500: { unlocked: false, name: "Long Hauler", desc: "Travel 500 Peter Griffins", reward: 250 },
+  collector: { unlocked: false, name: "Lettuce Collector", desc: "Earn 1000 lbs of lettuce", reward: 500 },
+  powerUp: { unlocked: false, name: "Power Hungry", desc: "Collect a power-up", reward: 75 },
+  bouncer: { unlocked: false, name: "Bouncy Castle", desc: "Bounce 10 times in one flight", reward: 200 }
+};
+
+let totalEarned = 0;
+let totalDistance = 0;
+let bounceCount = 0;
+let maxDistance = 0;
+let totalFlights = 0;
   const snailCost = 10000;
 
   let snail = {
@@ -396,6 +410,8 @@
   let keys = {};
   let touchKeys = {};
   let clouds = [];
+  let powerUps = [];
+let powerUpSpawnTimer = 0;
 
   let landed = false;
   let landTime = 0;
@@ -426,6 +442,17 @@
   function groundHeightAt(x) {
     return canvas.height - 60 + Math.sin(x * 0.01) * 20 + Math.sin(x * 0.03) * 5;
   }
+  function spawnPowerUp() {
+  if (snail.flying && Math.random() < 0.003) {
+    powerUps.push({
+      x: snail.x + canvas.width/2 + Math.random() * 200,
+      y: 50 + Math.random() * 100,
+      type: Math.random() < 0.5 ? 'speed' : 'bounce',
+      collected: false,
+      vy: 2 + Math.random() * 2
+    });
+  }
+}
 
   function resetSnail() {
     snail.x = 100;
@@ -681,7 +708,59 @@
     moneySpan.textContent = money;
     updateUpgradeButtons();
   }
+function checkAchievements() {
+  const ach = achievements;
+  
+  if (!ach.firstFlight.unlocked && totalFlights >= 1) {
+    unlockAchievement('firstFlight');
+  }
+  
+  if (!ach.distance100.unlocked && maxDistance >= 100) {
+    unlockAchievement('distance100');
+  }
+  
+  if (!ach.distance500.unlocked && maxDistance >= 500) {
+    unlockAchievement('distance500');
+  }
+  
+  if (!ach.collector.unlocked && totalEarned >= 1000) {
+    unlockAchievement('collector');
+  }
+}
 
+function unlockAchievement(key) {
+  const ach = achievements[key];
+  if (!ach.unlocked) {
+    ach.unlocked = true;
+    money += ach.reward;
+    showAchievementNotification(ach);
+    updateMoney();
+  }
+}
+
+function showAchievementNotification(achievement) {
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #2d3748; padding: 12px 16px; border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    font-weight: 600; font-size: 14px; min-width: 250px;
+    transform: translateX(300px); transition: transform 0.3s ease;
+  `;
+  notification.innerHTML = `
+    🏆 <strong>${achievement.name}</strong><br>
+    <small>${achievement.desc}</small><br>
+    <small>+${achievement.reward} lbs lettuce!</small>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+  setTimeout(() => notification.style.transform = 'translateX(300px)', 4000);
+  setTimeout(() => document.body.removeChild(notification), 4500);
+}
   // Upgrade button handlers
   powerUpBtn.onclick = () => {
     if (money >= catapultPowerCost) {
