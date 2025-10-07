@@ -94,7 +94,7 @@
   #upgradeControls {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
     max-width: 800px;
     overflow-x: auto;
@@ -112,15 +112,15 @@
   .upgrade-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
     justify-content: center;
   }
   
   button {
     font-family: inherit;
-    padding: 10px 14px;
-    font-size: 13px;
+    padding: 8px 10px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -129,6 +129,7 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    min-width: 120px;
   }
   
   button:hover, button:active {
@@ -181,9 +182,9 @@
     text-align: left;
     position: relative;
     overflow: hidden;
-    padding: 8px 12px;
-    font-size: 12px;
-    min-width: 160px;
+    padding: 6px 8px;
+    font-size: 11px;
+    min-width: 120px;
   }
   
   .upgrade-btn:hover {
@@ -252,19 +253,25 @@
     }
     
     #upgradeControls {
-      gap: 6px;
+      gap: 4px;
       padding: 6px 0;
       max-height: 180px;
     }
     
     .upgrade-row {
-      gap: 6px;
+      gap: 4px;
     }
     
     .upgrade-btn {
-      font-size: 11px;
+      font-size: 10px;
+      padding: 5px 6px;
+      min-width: 110px;
+    }
+    
+    button {
       padding: 6px 8px;
-      min-width: 140px;
+      font-size: 11px;
+      min-width: 110px;
     }
   }
   
@@ -288,24 +295,25 @@
     }
     
     #upgradeControls {
-      gap: 4px;
+      gap: 3px;
       padding: 4px 0;
       max-height: 160px;
     }
     
     .upgrade-row {
-      gap: 4px;
+      gap: 3px;
     }
     
     .upgrade-btn {
-      font-size: 10px;
-      padding: 6px;
-      min-width: 120px;
+      font-size: 9px;
+      padding: 4px 5px;
+      min-width: 100px;
     }
     
     button {
-      font-size: 12px;
-      padding: 8px 12px;
+      font-size: 10px;
+      padding: 5px 6px;
+      min-width: 100px;
     }
     
     #launchBtn, #endFlightBtn {
