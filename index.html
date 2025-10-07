@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<title>Flumgus Snail Launcher - Infinite Ground Edition</title>
+<title>Flumgus; speedforce patch</title>
 <style>
   body, html {
     margin: 0; 
@@ -351,10 +351,16 @@
   const touchLeft = document.getElementById('touchLeft');
   const touchUp = document.getElementById('touchUp');
   const touchRight = document.getElementById('touchRight');
+  const speedForceBtn = document.getElementById('speedForceBtn');
+const speedForceCostSpan = document.getElementById('speedForceCost');
+
+// Initialize the display of the cost
+speedForceCostSpan.textContent = (100000000).toLocaleString(); // 100 million
 
   let money = 0;
   let distance = 0;
-
+let speedForceActive = false;
+const speedForceMultiplier = 2.5e6;
   let catapultPower = 15;
   let catapultPowerCost = 10;
 
@@ -530,6 +536,8 @@ let powerUpSpawnTimer = 0;
   endFlightBtn.onclick = endFlight;
 
   function update(delta) {
+    let speedMultiplier = 1;
+if (speedForceActive) speedMultiplier = speedForceMultiplier;
     clouds.forEach(cloud => {
       cloud.x += cloud.speed;
       if (cloud.x > cameraX + canvas.width + 200) {
@@ -545,14 +553,13 @@ let powerUpSpawnTimer = 0;
       const rightPressed = keys['ArrowRight'] || touchKeys['ArrowRight'];
       const upPressed = keys['ArrowUp'] || touchKeys['ArrowUp'];
       
-      if (leftPressed) snail.vx -= airControl * 0.3;
-      if (rightPressed) snail.vx += airControl * 0.3;
+      if (leftPressed) snail.vx -= airControl * 0.3 * speedMultiplier;
+      if (rightPressed) snail.vx += airControl * 0.3 * speedMultiplier;
       if (upPressed && turboBoost > 0) snail.vy -= turboBoost * 0.2;
     }
 
-    snail.vx += (Math.random() * 0.2 - 0.1) * windResistance;
-    snail.vy += gravity + (Math.random() * 0.2 - 0.1);
-
+  snail.vx += (Math.random() * 0.2 - 0.1) * windResistance * speedMultiplier;
+snail.vy += gravity * speedMultiplier + (Math.random() * 0.2 - 0.1);
     snail.x += snail.vx;
     snail.y += snail.vy;
 
@@ -852,6 +859,18 @@ function showAchievementNotification(achievement) {
     }
   };
 
+  // Speed Force button handler
+  speedForceBtn.onclick = () => {
+    if (money >= 100000000 && !speedForceActive) {
+      money -= 100000000;
+      speedForceActive = true;
+      speedForceBtn.innerHTML = '⚡ Entered the Speed Force<br><small>Owned!</small>';
+      speedForceBtn.disabled = true;
+      updateMoney();
+      updateUpgradeButtons();
+    }
+  };
+
   function updateUpgradeButtons() {
     powerUpBtn.disabled = money < catapultPowerCost;
     gravityUpBtn.disabled = money < gravityCost || gravity <= 0.2;
@@ -862,6 +881,7 @@ function showAchievementNotification(achievement) {
     turboUpBtn.disabled = money < turboCost;
     luckyUpBtn.disabled = money < luckyCost;
     snailUpBtn.disabled = money < snailCost || snailUpgradeBought;
+    speedForceBtn.disabled = money < 100000000 || speedForceActive;
   }
 
   // Keyboard input
