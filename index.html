@@ -359,26 +359,29 @@
   
   <div id="controls">
     <div id="mainControls">
-      <button id="launchBtn">🚀 Launch Snail</button>
-      <button id="endFlightBtn" disabled>🛑 End Flight</button>
+      <button id="launchBtn">fling thy mollusk</button>
+      <button id="endFlightBtn" disabled>End Flight</button>
     </div>
     
     <div id="upgradeControls">
       <div class="upgrade-row">
-        <button class="upgrade-btn" id="powerUpBtn">💪 Strength of thy Snail<br><small>Cost: <span id="powerCost">10</span> lbs</small></button>
-        <button class="upgrade-btn" id="gravityUpBtn">🪐 Reduce Gravity<br><small>Cost: <span id="gravityCost">15</span> lbs</small></button>
-        <button class="upgrade-btn" id="airControlUpBtn">🎮 Air Control<br><small>Cost: <span id="airControlCost">25</span> lbs</small></button>
-        <button class="upgrade-btn" id="magnetUpBtn">🧲 Coin Magnet<br><small>Cost: <span id="magnetCost">30</span> lbs</small></button>
+        <button class="upgrade-btn" id="powerUpBtn">Strength of thy Snail<br><small>Cost: <span id="powerCost">10</span> lbs</small></button>
+        <button class="upgrade-btn" id="gravityUpBtn">Reduce Gravity<br><small>Cost: <span id="gravityCost">15</span> lbs</small></button>
+        <button class="upgrade-btn" id="airControlUpBtn"> Air Control<br><small>Cost: <span id="airControlCost">25</span> lbs</small></button>
+        <button class="upgrade-btn" id="magnetUpBtn">More Coins<br><small>Cost: <span id="magnetCost">30</span> lbs</small></button>
       </div>
       <div class="upgrade-row">
-        <button class="upgrade-btn" id="bounceUpBtn">🏀 Bounciness<br><small>Cost: <span id="bounceCost">50</span> lbs</small></button>
-        <button class="upgrade-btn" id="windUpBtn">💨 Wind Resistance<br><small>Cost: <span id="windCost">75</span> lbs</small></button>
-        <button class="upgrade-btn" id="turboUpBtn">🔥 Turbo Boost<br><small>Cost: <span id="turboCost">100</span> lbs</small></button>
-        <button class="upgrade-btn" id="luckyUpBtn">🍀 Lucky Charm<br><small>Cost: <span id="luckyCost">200</span> lbs</small></button>
+        <button class="upgrade-btn" id="bounceUpBtn">Bounciness<br><small>Cost: <span id="bounceCost">50</span> lbs</small></button>
+        <button class="upgrade-btn" id="windUpBtn">Wind Resistance<br><small>Cost: <span id="windCost">75</span> lbs</small></button>
+        <button class="upgrade-btn" id="turboUpBtn">Turbo Boost<br><small>Cost: <span id="turboCost">100</span> lbs</small></button>
+        <button class="upgrade-btn" id="luckyUpBtn">Lucky Charm<br><small>Cost: <span id="luckyCost">200</span> lbs</small></button>
       </div>
       <div class="upgrade-row">
-        <button class="upgrade-btn" id="speedForceBtn">⚡ Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small></button>
-        <button class="upgrade-btn" id="snailUpBtn">🐌 Super Snail<br><small>Cost: <span id="snailCost">10000</span> lbs</small></button>
+        <button class="upgrade-btn" id="fatBtn">Fat<br><small>Cost: <span id="fatCost">1000000</span> lbs</small></button>
+        <button class="upgrade-btn" id="speedForceBtn">Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small></button>
+      </div>
+      <div class="upgrade-row">
+        <button class="upgrade-btn" id="consumeVoidBtn">Consume the Void<br><small>Cost: <span id="consumeVoidCost">15000000000000000</span> lbs</small></button>
       </div>
     </div>
   </div>
@@ -403,22 +406,19 @@
   const windUpBtn = document.getElementById('windUpBtn');
   const turboUpBtn = document.getElementById('turboUpBtn');
   const luckyUpBtn = document.getElementById('luckyUpBtn');
-  const snailUpBtn = document.getElementById('snailUpBtn');
+  const speedForceBtn = document.getElementById('speedForceBtn');
+  const consumeVoidBtn = document.getElementById('consumeVoidBtn');
+  const fatBtn = document.getElementById('fatBtn');
 
   // Touch controls
   const touchLeft = document.getElementById('touchLeft');
   const touchUp = document.getElementById('touchUp');
   const touchRight = document.getElementById('touchRight');
-  const speedForceBtn = document.getElementById('speedForceBtn');
-const speedForceCostSpan = document.getElementById('speedForceCost');
-
-// Initialize the display of the cost
-speedForceCostSpan.textContent = (100000000).toLocaleString(); // 100 million
 
   let money = 0;
   let distance = 0;
-let speedForceActive = false;
-const speedForceMultiplier = 2.5e6;
+  let speedForceActive = false;
+  const speedForceMultiplier = 2.5e6;
   let catapultPower = 15;
   let catapultPowerCost = 10;
 
@@ -476,11 +476,32 @@ let totalFlights = 0;
   let touchKeys = {};
   let clouds = [];
   let powerUps = [];
-let powerUpSpawnTimer = 0;
+  let powerUpSpawnTimer = 0;
 
   let landed = false;
   let landTime = 0;
   let waitingToReset = false;
+
+  // Initialize the display of the cost
+  const speedForceCostSpan = document.getElementById('speedForceCost');
+  speedForceCostSpan.textContent = (100000000).toLocaleString(); // 100 million
+
+  // Initialize the display of the consume void cost
+  const consumeVoidCostSpan = document.getElementById('consumeVoidCost');
+  consumeVoidCostSpan.textContent = (15000000000000000).toLocaleString(); // 15 quadrillion
+
+  // Initialize the display of the fat cost
+  const fatCostSpan = document.getElementById('fatCost');
+  fatCostSpan.textContent = (1000000).toLocaleString(); // 1 million
+
+  // Consume the Void upgrade variables
+  let consumeVoidActive = false;
+  const consumeVoidMultiplier = 25000000000000; // 25 trillion
+
+  // Fat upgrade variables
+  let fatActive = false;
+  const fatMultiplier = 3;
+  const fatCost = 1000000; // 1 million
 
   // Resize canvas to fit container
   function resizeCanvas() {
@@ -595,7 +616,8 @@ let powerUpSpawnTimer = 0;
 
   function update(delta) {
     let speedMultiplier = 1;
-if (speedForceActive) speedMultiplier = speedForceMultiplier;
+    if (speedForceActive) speedMultiplier = speedForceMultiplier;
+    if (consumeVoidActive) speedMultiplier = consumeVoidMultiplier;
     clouds.forEach(cloud => {
       cloud.x += cloud.speed;
       if (cloud.x > cameraX + canvas.width + 200) {
@@ -617,7 +639,7 @@ if (speedForceActive) speedMultiplier = speedForceMultiplier;
     }
 
   snail.vx += (Math.random() * 0.2 - 0.1) * windResistance * speedMultiplier;
-snail.vy += gravity * speedMultiplier + (Math.random() * 0.2 - 0.1);
+  snail.vy += gravity * speedMultiplier + (Math.random() * 0.2 - 0.1);
     snail.x += snail.vx;
     snail.y += snail.vy;
 
@@ -733,6 +755,13 @@ snail.vy += gravity * speedMultiplier + (Math.random() * 0.2 - 0.1);
       ctx.shadowBlur = 15;
     }
     
+    // Make snail completely black when consume the void is active
+    if (consumeVoidActive) {
+      ctx.fillStyle = '#000000';
+    } else {
+      ctx.fillStyle = '#9acd32';
+    }
+    
     ctx.font = `${snail.size}px serif`;
     ctx.textBaseline = 'top';
     const snailScreenX = snail.x - cameraX;
@@ -774,6 +803,7 @@ snail.vy += gravity * speedMultiplier + (Math.random() * 0.2 - 0.1);
     moneySpan.textContent = money;
     updateUpgradeButtons();
   }
+
 function checkAchievements() {
   const ach = achievements;
   
@@ -827,6 +857,7 @@ function showAchievementNotification(achievement) {
   setTimeout(() => notification.style.transform = 'translateX(300px)', 4000);
   setTimeout(() => document.body.removeChild(notification), 4500);
 }
+
   // Upgrade button handlers
   powerUpBtn.onclick = () => {
     if (money >= catapultPowerCost) {
@@ -908,12 +939,16 @@ function showAchievementNotification(achievement) {
     }
   };
 
-  snailUpBtn.onclick = () => {
-    if (!snailUpgradeBought && money >= snailCost) {
-      money -= snailCost;
-      snailUpgradeBought = true;
-      snailUpBtn.innerHTML = '🐌 Super Snail<br><small>Owned!</small>';
+  // Fat button handler
+  fatBtn.onclick = () => {
+    if (money >= fatCost && !fatActive) {
+      money -= fatCost;
+      fatActive = true;
+      snail.size *= fatMultiplier;
+      fatBtn.innerHTML = '⚖️ Fat Snail<br><small>Owned!</small>';
+      fatBtn.disabled = true;
       updateMoney();
+      updateUpgradeButtons();
     }
   };
 
@@ -929,6 +964,18 @@ function showAchievementNotification(achievement) {
     }
   };
 
+  // Consume the Void button handler
+  consumeVoidBtn.onclick = () => {
+    if (money >= 15000000000000000 && !consumeVoidActive) {
+      money -= 15000000000000000;
+      consumeVoidActive = true;
+      consumeVoidBtn.innerHTML = '🌀 Consumed the Void<br><small>Owned!</small>';
+      consumeVoidBtn.disabled = true;
+      updateMoney();
+      updateUpgradeButtons();
+    }
+  };
+
   function updateUpgradeButtons() {
     powerUpBtn.disabled = money < catapultPowerCost;
     gravityUpBtn.disabled = money < gravityCost || gravity <= 0.2;
@@ -938,8 +985,9 @@ function showAchievementNotification(achievement) {
     windUpBtn.disabled = money < windCost || windResistance <= 0.3;
     turboUpBtn.disabled = money < turboCost;
     luckyUpBtn.disabled = money < luckyCost;
-    snailUpBtn.disabled = money < snailCost || snailUpgradeBought;
+    fatBtn.disabled = money < fatCost || fatActive;
     speedForceBtn.disabled = money < 100000000 || speedForceActive;
+    consumeVoidBtn.disabled = money < 15000000000000000 || consumeVoidActive;
   }
 
   // Keyboard input
