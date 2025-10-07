@@ -92,11 +92,19 @@
   }
   
   #upgradeControls {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
     max-width: 800px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 0;
+    scrollbar-width: none;
+  }
+  
+  #upgradeControls::-webkit-scrollbar {
+    display: none;
   }
   
   button {
@@ -165,6 +173,7 @@
     overflow: hidden;
     padding: 8px 12px;
     font-size: 12px;
+    min-width: 160px;
   }
   
   .upgrade-btn:hover {
@@ -233,12 +242,14 @@
     }
     
     #upgradeControls {
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 6px;
+      padding: 6px 0;
     }
     
     .upgrade-btn {
       font-size: 11px;
       padding: 6px 8px;
+      min-width: 140px;
     }
   }
   
@@ -262,12 +273,14 @@
     }
     
     #upgradeControls {
-      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px 0;
     }
     
     .upgrade-btn {
       font-size: 10px;
       padding: 6px;
+      min-width: 120px;
     }
     
     button {
@@ -323,7 +336,6 @@
       <button class="upgrade-btn" id="luckyUpBtn">🍀 Lucky Charm<br><small>Cost: <span id="luckyCost">200</span> lbs</small></button>
       <button class="upgrade-btn" id="speedForceBtn">⚡ Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small></button>
       <button class="upgrade-btn" id="snailUpBtn">🐌 Super Snail<br><small>Cost: <span id="snailCost">10000</span> lbs</small></button>
-      
     </div>
   </div>
 </div>
