@@ -101,10 +101,20 @@
     overflow-y: hidden;
     padding: 8px 0;
     scrollbar-width: none;
+    max-height: 200px;
+    flex-direction: column;
   }
   
   #upgradeControls::-webkit-scrollbar {
     display: none;
+  }
+  
+  .upgrade-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
   }
   
   button {
@@ -244,6 +254,11 @@
     #upgradeControls {
       gap: 6px;
       padding: 6px 0;
+      max-height: 180px;
+    }
+    
+    .upgrade-row {
+      gap: 6px;
     }
     
     .upgrade-btn {
@@ -275,6 +290,11 @@
     #upgradeControls {
       gap: 4px;
       padding: 4px 0;
+      max-height: 160px;
+    }
+    
+    .upgrade-row {
+      gap: 4px;
     }
     
     .upgrade-btn {
@@ -326,16 +346,22 @@
     </div>
     
     <div id="upgradeControls">
-      <button class="upgrade-btn" id="powerUpBtn">💪 Strength of thy Snail<br><small>Cost: <span id="powerCost">10</span> lbs</small></button>
-      <button class="upgrade-btn" id="gravityUpBtn">🪐 Reduce Gravity<br><small>Cost: <span id="gravityCost">15</span> lbs</small></button>
-      <button class="upgrade-btn" id="airControlUpBtn">🎮 Air Control<br><small>Cost: <span id="airControlCost">25</span> lbs</small></button>
-      <button class="upgrade-btn" id="magnetUpBtn">🧲 Coin Magnet<br><small>Cost: <span id="magnetCost">30</span> lbs</small></button>
-      <button class="upgrade-btn" id="bounceUpBtn">🏀 Bounciness<br><small>Cost: <span id="bounceCost">50</span> lbs</small></button>
-      <button class="upgrade-btn" id="windUpBtn">💨 Wind Resistance<br><small>Cost: <span id="windCost">75</span> lbs</small></button>
-      <button class="upgrade-btn" id="turboUpBtn">🔥 Turbo Boost<br><small>Cost: <span id="turboCost">100</span> lbs</small></button>
-      <button class="upgrade-btn" id="luckyUpBtn">🍀 Lucky Charm<br><small>Cost: <span id="luckyCost">200</span> lbs</small></button>
-      <button class="upgrade-btn" id="speedForceBtn">⚡ Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small></button>
-      <button class="upgrade-btn" id="snailUpBtn">🐌 Super Snail<br><small>Cost: <span id="snailCost">10000</span> lbs</small></button>
+      <div class="upgrade-row">
+        <button class="upgrade-btn" id="powerUpBtn">💪 Strength of thy Snail<br><small>Cost: <span id="powerCost">10</span> lbs</small></button>
+        <button class="upgrade-btn" id="gravityUpBtn">🪐 Reduce Gravity<br><small>Cost: <span id="gravityCost">15</span> lbs</small></button>
+        <button class="upgrade-btn" id="airControlUpBtn">🎮 Air Control<br><small>Cost: <span id="airControlCost">25</span> lbs</small></button>
+        <button class="upgrade-btn" id="magnetUpBtn">🧲 Coin Magnet<br><small>Cost: <span id="magnetCost">30</span> lbs</small></button>
+      </div>
+      <div class="upgrade-row">
+        <button class="upgrade-btn" id="bounceUpBtn">🏀 Bounciness<br><small>Cost: <span id="bounceCost">50</span> lbs</small></button>
+        <button class="upgrade-btn" id="windUpBtn">💨 Wind Resistance<br><small>Cost: <span id="windCost">75</span> lbs</small></button>
+        <button class="upgrade-btn" id="turboUpBtn">🔥 Turbo Boost<br><small>Cost: <span id="turboCost">100</span> lbs</small></button>
+        <button class="upgrade-btn" id="luckyUpBtn">🍀 Lucky Charm<br><small>Cost: <span id="luckyCost">200</span> lbs</small></button>
+      </div>
+      <div class="upgrade-row">
+        <button class="upgrade-btn" id="speedForceBtn">⚡ Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small></button>
+        <button class="upgrade-btn" id="snailUpBtn">🐌 Super Snail<br><small>Cost: <span id="snailCost">10000</span> lbs</small></button>
+      </div>
     </div>
   </div>
 </div>
