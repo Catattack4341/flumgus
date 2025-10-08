@@ -331,6 +331,204 @@
       min-width: 120px;
     }
   }
+  
+  /* New rebirth UI */
+  #rebirthModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  #rebirthModal.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  #rebirthContent {
+    background: linear-gradient(135deg, #2d3748, #1a202c);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 90%;
+    width: 500px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  #rebirthModal.active #rebirthContent {
+    transform: translateY(0);
+  }
+  
+  #rebirthContent h2 {
+    margin-top: 0;
+    color: #ffd700;
+  }
+  
+  #rebirthContent p {
+    margin: 15px 0;
+    line-height: 1.6;
+  }
+  
+  #rebirthContent button {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.2s ease;
+  }
+  
+  #rebirthContent button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  #cancelRebirthBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  #cancelRebirthBtn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+  
+  .rebirth-boost {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 0 5px;
+    font-weight: bold;
+  }
+  
+  /* Achievement notification */
+  #achievementNotification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #2d3748;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    font-weight: 600;
+    font-size: 14px;
+    min-width: 250px;
+    transform: translateX(300px);
+    transition: transform 0.3s ease;
+    z-index: 9999;
+  }
+  
+  /* Particle effect */
+  .particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 100;
+  }
+  
+  /* New upgrade styling */
+  .upgrade-btn.special {
+    background: linear-gradient(135deg, #f56565, #e53e3e);
+  }
+  
+  .upgrade-btn.special:hover {
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+  }
+  
+  .upgrade-btn.rebirth {
+    background: linear-gradient(135deg, #805ad5, #6b46c1);
+  }
+  
+  .upgrade-btn.rebirth:hover {
+    background: linear-gradient(135deg, #6b46c1, #553c9a);
+  }
+  
+  /* Power-up items */
+  .power-up {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    z-index: 50;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+  }
+  
+  .speed-power {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    box-shadow: 0 0 10px #ff9a9e;
+  }
+  
+  .bounce-power {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    box-shadow: 0 0 10px #a1c4fd;
+  }
+  
+  /* Stats panel */
+  #statsPanel {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 100px;
+    text-align: center;
+  }
+  
+  .stat-card h3 {
+    margin: 0 0 5px 0;
+    font-size: 12px;
+    color: #4299e1;
+  }
+  
+  .stat-card .value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2d3748;
+  }
 </style>
 </head>
 <body>
@@ -355,12 +553,24 @@
       <span>🥬</span>
       <span>Lettuce: <span class="stat-value" id="money">0</span> lbs</span>
     </div>
+    <div class="stat-item">
+      <span>🥤</span>
+      <span>Lettuce Juice: <span class="stat-value" id="lettuceJuice">0</span> gallons</span>
+    </div>
+  </div>
+  
+  <div id="statsPanel">
+    <div class="stat-card">
+      <h3>Flights</h3>
+      <div class="value" id="flights">0</div>
+    </div>
   </div>
   
   <div id="controls">
     <div id="mainControls">
       <button id="launchBtn">fling thy mollusk</button>
       <button id="endFlightBtn" disabled>End Flight</button>
+      <button id="rebirthBtn">Rebirth</button>
     </div>
     
     <div id="upgradeControls">
@@ -379,24 +589,40 @@
       <div class="upgrade-row">
         <button class="upgrade-btn" id="fatBtn">Fat<br><small>Cost: <span id="fatCost">1000000</span> lbs</small></button>
         <button class="upgrade-btn" id="speedForceBtn">Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small></button>
+        <button class="upgrade-btn" id="consumeVoidBtn">Consume the Void<br><small>Cost: <span id="consumeVoidCost">15000000</span> gallons</small></button>
       </div>
       <div class="upgrade-row">
-        <button class="upgrade-btn" id="consumeVoidBtn">Consume the Void<br><small>Cost: <span id="consumeVoidCost">15000000000000000</span> lbs</small></button>
+        <button class="upgrade-btn rebirth" id="superStrengthBtn">Super Strength<br><small>Cost: <span id="superStrengthCost">1</span> gallon</small></button>
+        <button class="upgrade-btn rebirth" id="wealthBtn">Wealth<br><small>Cost: <span id="wealthCost">5</span> gallons</small></button>
+        <button class="upgrade-btn rebirth" id="choiceBtn">Choice Upgrade<br><small>Cost: <span id="choiceCost">10</span> gallons</small></button>
       </div>
     </div>
   </div>
 </div>
 
+<div id="rebirthModal">
+  <div id="rebirthContent">
+    <button id="cancelRebirthBtn">×</button>
+    <h2>✨ Rebirth ✨</h2>
+    <p>You've earned <span id="lettuceJuiceEarned">0</span> gallons of lettuce juice!</p>
+    <p>Rebirth resets all upgrades but keeps your lettuce juice!</p>
+    <p>Each 250,000 lbs of lettuce = 1 gallon of juice</p>
+    <button id="confirmRebirth">Confirm Rebirth</button>
+  </div>
+</div>
+
 <script>
-// All your JavaScript code remains the same
 (() => {
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
 
   const distanceSpan = document.getElementById('distance');
   const moneySpan = document.getElementById('money');
+  const lettuceJuiceSpan = document.getElementById('lettuceJuice');
   const launchBtn = document.getElementById('launchBtn');
   const endFlightBtn = document.getElementById('endFlightBtn');
+  const rebirthBtn = document.getElementById('rebirthBtn');
+  const flightsSpan = document.getElementById('flights');
 
   const powerUpBtn = document.getElementById('powerUpBtn');
   const gravityUpBtn = document.getElementById('gravityUpBtn');
@@ -409,13 +635,23 @@
   const speedForceBtn = document.getElementById('speedForceBtn');
   const consumeVoidBtn = document.getElementById('consumeVoidBtn');
   const fatBtn = document.getElementById('fatBtn');
+  const superStrengthBtn = document.getElementById('superStrengthBtn');
+  const wealthBtn = document.getElementById('wealthBtn');
+  const choiceBtn = document.getElementById('choiceBtn');
 
   // Touch controls
   const touchLeft = document.getElementById('touchLeft');
   const touchUp = document.getElementById('touchUp');
   const touchRight = document.getElementById('touchRight');
 
+  // Rebirth modal
+  const rebirthModal = document.getElementById('rebirthModal');
+  const lettuceJuiceEarnedSpan = document.getElementById('lettuceJuiceEarned');
+  const confirmRebirthBtn = document.getElementById('confirmRebirth');
+  const cancelRebirthBtn = document.getElementById('cancelRebirthBtn');
+
   let money = 0;
+  let lettuceJuice = 0;
   let distance = 0;
   let speedForceActive = false;
   const speedForceMultiplier = 2.5e6;
@@ -458,351 +694,519 @@ let totalDistance = 0;
 let bounceCount = 0;
 let maxDistance = 0;
 let totalFlights = 0;
-  const snailCost = 10000;
+let rebirths = 0;
+const snailCost = 10000;
 
-  let snail = {
-    x: 100,
-    y: 0,
-    vx: 0,
-    vy: 0,
-    size: 40,
-    flying: false,
-  };
+// Rebirth upgrade counters (these persist through rebirths)
+let superStrengthLevel = 0;
+let wealthLevel = 0;
+let choiceLevel = 0;
 
-  let cameraX = 0;
-  let cameraY = 0;
+let snail = {
+  x: 100,
+  y: 0,
+  vx: 0,
+  vy: 0,
+  size: 40,
+  flying: false,
+};
 
-  let keys = {};
-  let touchKeys = {};
-  let clouds = [];
-  let powerUps = [];
-  let powerUpSpawnTimer = 0;
+let cameraX = 0;
+let cameraY = 0;
 
-  let landed = false;
-  let landTime = 0;
-  let waitingToReset = false;
+let keys = {};
+let touchKeys = {};
+let clouds = [];
+let powerUps = [];
+let powerUpSpawnTimer = 0;
 
-  // Initialize the display of the cost
-  const speedForceCostSpan = document.getElementById('speedForceCost');
-  speedForceCostSpan.textContent = (100000000).toLocaleString(); // 100 million
+let landed = false;
+let landTime = 0;
+let waitingToReset = false;
 
-  // Initialize the display of the consume void cost
-  const consumeVoidCostSpan = document.getElementById('consumeVoidCost');
-  consumeVoidCostSpan.textContent = (15000000000000000).toLocaleString(); // 15 quadrillion
+// Initialize the display of the cost
+const speedForceCostSpan = document.getElementById('speedForceCost');
+speedForceCostSpan.textContent = (100000000).toLocaleString(); // 100 million
 
-  // Initialize the display of the fat cost
-  const fatCostSpan = document.getElementById('fatCost');
-  fatCostSpan.textContent = (1000000).toLocaleString(); // 1 million
+// Initialize the display of the consume void cost
+const consumeVoidCostSpan = document.getElementById('consumeVoidCost');
+consumeVoidCostSpan.textContent = (15000000).toLocaleString(); // 15 million gallons
 
-  // Consume the Void upgrade variables
-  let consumeVoidActive = false;
-  const consumeVoidMultiplier = 25000000000000; // 25 trillion
+// Initialize the display of the fat cost
+const fatCostSpan = document.getElementById('fatCost');
+fatCostSpan.textContent = (1000000).toLocaleString(); // 1 million
 
-  // Fat upgrade variables
-  let fatActive = false;
-  const fatMultiplier = 3;
-  const fatCost = 1000000; // 1 million
+// Initialize rebirth upgrade costs
+const superStrengthBaseCost = 1;
+const wealthBaseCost = 5;
+const choiceBaseCost = 10;
 
-  // Resize canvas to fit container
-  function resizeCanvas() {
-    const container = document.getElementById('gameContainer');
-    const rect = container.getBoundingClientRect();
-    canvas.width = rect.width - 16;
-    canvas.height = Math.min(rect.height - 8, 400);
-  }
+// Consume the Void upgrade variables
+let consumeVoidActive = false;
+const consumeVoidMultiplier = 25000000000000; // 25 trillion
 
-  // Initialize clouds
-  function initClouds() {
-    clouds = [];
-    for (let i = 0; i < 15; i++) {
-      clouds.push({
-        x: Math.random() * 4000 - 1000,
-        y: Math.random() * 200 + 50,
-        size: Math.random() * 60 + 30,
-        speed: Math.random() * 0.3 + 0.1,
-        opacity: Math.random() * 0.4 + 0.3
-      });
-    }
-  }
+// Fat upgrade variables
+let fatActive = false;
+const fatMultiplier = 3;
+const fatCost = 1000000; // 1 million
 
-  function groundHeightAt(x) {
-    return canvas.height - 60 + Math.sin(x * 0.01) * 20 + Math.sin(x * 0.03) * 5;
-  }
-  function spawnPowerUp() {
-  if (snail.flying && Math.random() < 0.003) {
-    powerUps.push({
-      x: snail.x + canvas.width/2 + Math.random() * 200,
-      y: 50 + Math.random() * 100,
-      type: Math.random() < 0.5 ? 'speed' : 'bounce',
-      collected: false,
-      vy: 2 + Math.random() * 2
+// Particle system
+let particles = [];
+
+// Power-up elements
+let powerUpElements = [];
+
+// Resize canvas to fit container
+function resizeCanvas() {
+  const container = document.getElementById('gameContainer');
+  const rect = container.getBoundingClientRect();
+  canvas.width = rect.width - 16;
+  canvas.height = Math.min(rect.height - 8, 400);
+}
+
+// Initialize clouds
+function initClouds() {
+  clouds = [];
+  for (let i = 0; i < 15; i++) {
+    clouds.push({
+      x: Math.random() * 4000 - 1000,
+      y: Math.random() * 200 + 50,
+      size: Math.random() * 60 + 30,
+      speed: Math.random() * 0.3 + 0.1,
+      opacity: Math.random() * 0.4 + 0.3
     });
   }
 }
 
-  function resetSnail() {
-    snail.x = 100;
-    snail.y = groundHeightAt(snail.x) - snail.size;
-    snail.vx = 0;
-    snail.vy = 0;
-    snail.flying = false;
-    landed = false;
-    waitingToReset = false;
-    distance = 0;
-    updateDistance();
-    cameraX = snail.x - canvas.width / 3;
-    cameraY = snail.y - canvas.height / 2;
-    endFlightBtn.disabled = true;
+function groundHeightAt(x) {
+  return canvas.height - 60 + Math.sin(x * 0.01) * 20 + Math.sin(x * 0.03) * 5;
+}
+
+function spawnPowerUp() {
+  if (snail.flying && Math.random() < 0.003) {
+    const powerUp = {
+      x: snail.x + canvas.width/2 + Math.random() * 200,
+      y: 50 + Math.random() * 100,
+      type: Math.random() < 0.5 ? 'speed' : 'bounce',
+      collected: false,
+      vy: 2 + Math.random() * 2,
+      id: Date.now() + Math.random()
+    };
+    powerUps.push(powerUp);
+    
+    // Create visual element
+    const powerUpElement = document.createElement('div');
+    powerUpElement.className = `power-up ${powerUp.type}-power`;
+    powerUpElement.style.left = `${powerUp.x - cameraX}px`;
+    powerUpElement.style.top = `${powerUp.y - cameraY}px`;
+    document.getElementById('gameContainer').appendChild(powerUpElement);
+    powerUpElements.push({ element: powerUpElement, id: powerUp.id });
   }
+}
 
-  function endFlight() {
-    if (!snail.flying) return;
-    
-    let reward = Math.floor(distance * (1 + coinMagnet * 0.5));
-    
-    if (luckyCharm > 0 && Math.random() < luckyCharm * 0.1) {
-      reward *= 2;
-    }
-    
-    money += reward;
-    updateMoney();
-    resetSnail();
+function resetSnail() {
+  snail.x = 100;
+  snail.y = groundHeightAt(snail.x) - snail.size;
+  snail.vx = 0;
+  snail.vy = 0;
+  snail.flying = false;
+  landed = false;
+  waitingToReset = false;
+  distance = 0;
+  updateDistance();
+  cameraX = snail.x - canvas.width / 3;
+  cameraY = snail.y - canvas.height / 2;
+  endFlightBtn.disabled = true;
+  
+  // Remove power-ups
+  powerUps = [];
+  powerUpElements.forEach(el => el.element.remove());
+  powerUpElements = [];
+}
+
+function endFlight() {
+  if (!snail.flying) return;
+  
+  let reward = Math.floor(distance * (1 + coinMagnet * 0.5));
+  
+  if (luckyCharm > 0 && Math.random() < luckyCharm * 0.1) {
+    reward *= 2;
   }
-
-  // Touch control setup
-  function setupTouchControls() {
-    const touchEvents = ['touchstart', 'touchend', 'touchcancel'];
-    
-    touchEvents.forEach(eventType => {
-      touchLeft.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        touchKeys['ArrowLeft'] = eventType === 'touchstart';
-      });
-      
-      touchRight.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        touchKeys['ArrowRight'] = eventType === 'touchstart';
-      });
-      
-      touchUp.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        touchKeys['ArrowUp'] = eventType === 'touchstart';
-      });
-    });
-
-    [touchLeft, touchRight, touchUp].forEach(btn => {
-      btn.addEventListener('contextmenu', (e) => e.preventDefault());
-    });
-  }
-
-  resizeCanvas();
+  
+  money += reward;
+  updateMoney();
   resetSnail();
-  initClouds();
-  setupTouchControls();
+}
 
-  launchBtn.onclick = () => {
-    if (snail.flying) return;
-    snail.vx = catapultPower + (Math.random() * 5 - 2.5);
-    snail.vy = -(catapultPower * 1.3) + (Math.random() * 5 - 2.5);
-    snail.flying = true;
-    landed = false;
-    waitingToReset = false;
-    distance = 0;
-    updateDistance();
-    endFlightBtn.disabled = false;
-  };
-
-  endFlightBtn.onclick = endFlight;
-
-  function update(delta) {
-    let speedMultiplier = 1;
-    if (speedForceActive) speedMultiplier = speedForceMultiplier;
-    if (consumeVoidActive) speedMultiplier = consumeVoidMultiplier;
-    clouds.forEach(cloud => {
-      cloud.x += cloud.speed;
-      if (cloud.x > cameraX + canvas.width + 200) {
-        cloud.x = cameraX - 200;
-        cloud.y = Math.random() * 200 + 50;
-      }
+// Create particle effect
+function createParticles(x, y, color, count) {
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: x,
+      y: y,
+      size: Math.random() * 5 + 2,
+      speedX: (Math.random() - 0.5) * 4,
+      speedY: (Math.random() - 0.5) * 4,
+      color: color,
+      life: 30
     });
+  }
+}
 
-    if (!snail.flying) return;
-
-    if (airControl > 0) {
-      const leftPressed = keys['ArrowLeft'] || touchKeys['ArrowLeft'];
-      const rightPressed = keys['ArrowRight'] || touchKeys['ArrowRight'];
-      const upPressed = keys['ArrowUp'] || touchKeys['ArrowUp'];
-      
-      if (leftPressed) snail.vx -= airControl * 0.3 * speedMultiplier;
-      if (rightPressed) snail.vx += airControl * 0.3 * speedMultiplier;
-      if (upPressed && turboBoost > 0) snail.vy -= turboBoost * 0.2;
+// Update particles
+function updateParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.speedX;
+    p.y += p.speedY;
+    p.life--;
+    
+    if (p.life <= 0) {
+      particles.splice(i, 1);
     }
+  }
+}
+
+// Draw particles
+function drawParticles() {
+  particles.forEach(p => {
+    ctx.globalAlpha = p.life / 30;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x - cameraX, p.y - cameraY, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+}
+
+// Touch control setup
+function setupTouchControls() {
+  const touchEvents = ['touchstart', 'touchend', 'touchcancel'];
+  
+  touchEvents.forEach(eventType => {
+    touchLeft.addEventListener(eventType, (e) => {
+      e.preventDefault();
+      touchKeys['ArrowLeft'] = eventType === 'touchstart';
+    });
+    
+    touchRight.addEventListener(eventType, (e) => {
+      e.preventDefault();
+      touchKeys['ArrowRight'] = eventType === 'touchstart';
+    });
+    
+    touchUp.addEventListener(eventType, (e) => {
+      e.preventDefault();
+      touchKeys['ArrowUp'] = eventType === 'touchstart';
+    });
+  });
+
+  [touchLeft, touchRight, touchUp].forEach(btn => {
+    btn.addEventListener('contextmenu', (e) => e.preventDefault());
+  });
+}
+
+resizeCanvas();
+resetSnail();
+initClouds();
+setupTouchControls();
+
+launchBtn.onclick = () => {
+  if (snail.flying) return;
+  // Apply rebirth upgrade effects
+  let effectivePower = catapultPower;
+  if (superStrengthLevel > 0) {
+    effectivePower *= Math.pow(2, superStrengthLevel);
+  }
+  snail.vx = effectivePower + (Math.random() * 5 - 2.5);
+  snail.vy = -(effectivePower * 1.3) + (Math.random() * 5 - 2.5);
+  snail.flying = true;
+  landed = false;
+  waitingToReset = false;
+  distance = 0;
+  updateDistance();
+  endFlightBtn.disabled = false;
+  totalFlights++;
+  updateStats();
+};
+
+endFlightBtn.onclick = endFlight;
+
+// Rebirth functionality
+rebirthBtn.onclick = () => {
+  // Calculate lettuce juice earned (1 gallon per 250,000 lbs)
+  const juiceEarned = Math.floor(money / 250000);
+  lettuceJuiceEarnedSpan.textContent = juiceEarned;
+  rebirthModal.classList.add('active');
+};
+
+cancelRebirthBtn.onclick = () => {
+  rebirthModal.classList.remove('active');
+};
+
+confirmRebirthBtn.onclick = () => {
+  // Calculate lettuce juice earned (1 gallon per 250,000 lbs)
+  const juiceEarned = Math.floor(money / 250000);
+  lettuceJuice += juiceEarned;
+  
+  // Reset regular upgrades but keep rebirth upgrades
+  money = 0;
+  catapultPower = 15;
+  gravity = 0.8;
+  airControl = 0;
+  coinMagnet = 0;
+  bounceiness = 0.5;
+  windResistance = 1;
+  turboBoost = 0;
+  luckyCharm = 0;
+  speedForceActive = false;
+  consumeVoidActive = false;
+  fatActive = false;
+  snail.size = 40;
+  
+  // Reset upgrade costs
+  catapultPowerCost = 10;
+  gravityCost = 15;
+  airControlCost = 25;
+  magnetCost = 30;
+  bounceCost = 50;
+  windCost = 75;
+  turboCost = 100;
+  luckyCost = 200;
+  
+  // Update UI
+  updateMoney();
+  updateLettuceJuice();
+  updateUpgradeButtons();
+  
+  // Close modal
+  rebirthModal.classList.remove('active');
+  
+  // Create visual effect
+  createParticles(snail.x, snail.y, '#ffd700', 50);
+  
+  // Update rebirth count
+  rebirths++;
+  updateStats();
+};
+
+function update(delta) {
+  let speedMultiplier = 1;
+  if (speedForceActive) speedMultiplier = speedForceMultiplier;
+  if (consumeVoidActive) speedMultiplier = consumeVoidMultiplier;
+  
+  clouds.forEach(cloud => {
+    cloud.x += cloud.speed;
+    if (cloud.x > cameraX + canvas.width + 200) {
+      cloud.x = cameraX - 200;
+      cloud.y = Math.random() * 200 + 50;
+    }
+  });
+
+  if (!snail.flying) return;
+
+  if (airControl > 0) {
+    const leftPressed = keys['ArrowLeft'] || touchKeys['ArrowLeft'];
+    const rightPressed = keys['ArrowRight'] || touchKeys['ArrowRight'];
+    const upPressed = keys['ArrowUp'] || touchKeys['ArrowUp'];
+    
+    if (leftPressed) snail.vx -= airControl * 0.3 * speedMultiplier;
+    if (rightPressed) snail.vx += airControl * 0.3 * speedMultiplier;
+    if (upPressed && turboBoost > 0) snail.vy -= turboBoost * 0.2;
+  }
 
   snail.vx += (Math.random() * 0.2 - 0.1) * windResistance * speedMultiplier;
   snail.vy += gravity * speedMultiplier + (Math.random() * 0.2 - 0.1);
-    snail.x += snail.vx;
-    snail.y += snail.vy;
+  snail.x += snail.vx;
+  snail.y += snail.vy;
 
-    const currentGroundY = groundHeightAt(snail.x);
-    if (snail.y + snail.size > currentGroundY) {
-      snail.y = currentGroundY - snail.size;
-      snail.vx *= 0.6;
-      snail.vy = -snail.vy * bounceiness;
+  const currentGroundY = groundHeightAt(snail.x);
+  if (snail.y + snail.size > currentGroundY) {
+    snail.y = currentGroundY - snail.size;
+    snail.vx *= 0.6;
+    snail.vy = -snail.vy * bounceiness;
+    bounceCount++;
 
-      if (!landed && Math.abs(snail.vy) < 1) {
-        landed = true;
-        landTime = performance.now();
+    if (!landed && Math.abs(snail.vy) < 1) {
+      landed = true;
+      landTime = performance.now();
 
-        let reward = Math.floor(distance * (1 + coinMagnet * 0.5));
-        
-        if (luckyCharm > 0 && Math.random() < luckyCharm * 0.1) {
-          reward *= 2;
-        }
-        
-        money += reward;
-        updateMoney();
-      }
-    }
-
-    if (landed && !waitingToReset) {
-      if (Math.abs(snail.vx) < 0.1) {
-        waitingToReset = true;
-        landTime = performance.now();
-      }
-    }
-
-    if (waitingToReset) {
-      if (performance.now() - landTime > 1000) {
-        resetSnail();
-      }
-    }
-
-    distance = (snail.x - 100) / snail.size;
-    if (distance < 0) distance = 0;
-
-    updateDistance();
-
-    const leadAhead = snail.vx * 5;
-    const targetCamX = snail.x - canvas.width / 3 + leadAhead;
-    const targetCamY = snail.y - canvas.height / 2 + snail.vy * 2;
-    
-    cameraX += (targetCamX - cameraX) * 0.08;
-    cameraY += (targetCamY - cameraY) * 0.06;
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, '#87ceeb');
-    gradient.addColorStop(0.7, '#b8e6ff');
-    gradient.addColorStop(1, '#e0f6ff');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.save();
-    clouds.forEach(cloud => {
-      const cloudX = cloud.x - cameraX;
-      const cloudY = cloud.y - cameraY * 0.3;
+      let reward = Math.floor(distance * (1 + coinMagnet * 0.5));
       
-      if (cloudX > -cloud.size && cloudX < canvas.width + cloud.size) {
-        ctx.globalAlpha = cloud.opacity;
-        ctx.fillStyle = 'white';
-        ctx.beginPath();
+      if (luckyCharm > 0 && Math.random() < luckyCharm * 0.1) {
+        reward *= 2;
+      }
+      
+      // Apply wealth rebirth upgrade
+      if (wealthLevel > 0) {
+        reward *= Math.pow(3, wealthLevel);
+      }
+      
+      money += reward;
+      updateMoney();
+    }
+  }
+
+  if (landed && !waitingToReset) {
+    if (Math.abs(snail.vx) < 0.1) {
+      waitingToReset = true;
+      landTime = performance.now();
+    }
+  }
+
+  if (waitingToReset) {
+    if (performance.now() - landTime > 1000) {
+      resetSnail();
+    }
+  }
+
+  distance = (snail.x - 100) / snail.size;
+  if (distance < 0) distance = 0;
+
+  updateDistance();
+
+  const leadAhead = snail.vx * 5;
+  const targetCamX = snail.x - canvas.width / 3 + leadAhead;
+  const targetCamY = snail.y - canvas.height / 2 + snail.vy * 2;
+  
+  cameraX += (targetCamX - cameraX) * 0.08;
+  cameraY += (targetCamY - cameraY) * 0.06;
+  
+  // Update power-up positions
+  powerUpElements.forEach(el => {
+    const powerUp = powerUps.find(p => p.id === el.id);
+    if (powerUp) {
+      el.element.style.left = `${powerUp.x - cameraX}px`;
+      el.element.style.top = `${powerUp.y - cameraY}px`;
+    }
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  gradient.addColorStop(0, '#87ceeb');
+  gradient.addColorStop(0.7, '#b8e6ff');
+  gradient.addColorStop(1, '#e0f6ff');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+  clouds.forEach(cloud => {
+    const cloudX = cloud.x - cameraX;
+    const cloudY = cloud.y - cameraY * 0.3;
+    
+    if (cloudX > -cloud.size && cloudX < canvas.width + cloud.size) {
+      ctx.globalAlpha = cloud.opacity;
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      
+      for (let i = 0; i < 6; i++) {
+        const angle = (i / 6) * Math.PI * 2;
+        const radius = cloud.size * (0.7 + Math.sin(angle * 3) * 0.3);
+        const x = cloudX + Math.cos(angle) * radius * 0.5;
+        const y = cloudY + Math.sin(angle) * radius * 0.3;
         
-        for (let i = 0; i < 6; i++) {
-          const angle = (i / 6) * Math.PI * 2;
-          const radius = cloud.size * (0.7 + Math.sin(angle * 3) * 0.3);
-          const x = cloudX + Math.cos(angle) * radius * 0.5;
-          const y = cloudY + Math.sin(angle) * radius * 0.3;
-          
-          if (i === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-        ctx.fill();
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
       }
-    });
-    ctx.restore();
-
-    ctx.fillStyle = '#6b8e23';
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height);
-    const startSegment = Math.floor(cameraX / 50) - 1;
-    const endSegment = startSegment + Math.ceil(canvas.width / 50) + 3;
-    for (let seg = startSegment; seg <= endSegment; seg++) {
-      const segX = seg * 50 - cameraX;
-      const segY = groundHeightAt(seg * 50) - cameraY;
-      ctx.lineTo(segX, segY);
+      ctx.closePath();
+      ctx.fill();
     }
-    ctx.lineTo(canvas.width, canvas.height);
-    ctx.closePath();
-    ctx.fill();
+  });
+  ctx.restore();
 
+  ctx.fillStyle = '#6b8e23';
+  ctx.beginPath();
+  ctx.moveTo(0, canvas.height);
+  const startSegment = Math.floor(cameraX / 50) - 1;
+  const endSegment = startSegment + Math.ceil(canvas.width / 50) + 3;
+  for (let seg = startSegment; seg <= endSegment; seg++) {
+    const segX = seg * 50 - cameraX;
+    const segY = groundHeightAt(seg * 50) - cameraY;
+    ctx.lineTo(segX, segY);
+  }
+  ctx.lineTo(canvas.width, canvas.height);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.fillStyle = '#9acd32';
+  for (let seg = startSegment; seg <= endSegment; seg += 2) {
+    const segX = seg * 50 - cameraX;
+    const segY = groundHeightAt(seg * 50) - cameraY;
+    if (segX > -20 && segX < canvas.width + 20) {
+      ctx.fillRect(segX - 2, segY - 8, 4, 8);
+      ctx.fillRect(segX + 8, segY - 6, 3, 6);
+      ctx.fillRect(segX - 8, segY - 5, 2, 5);
+    }
+  }
+
+  if (snail.flying) {
+    ctx.shadowColor = '#ffff00';
+    ctx.shadowBlur = 15;
+  }
+  
+  // Make snail completely black when consume the void is active
+  if (consumeVoidActive) {
+    ctx.fillStyle = '#000000';
+  } else {
     ctx.fillStyle = '#9acd32';
-    for (let seg = startSegment; seg <= endSegment; seg += 2) {
-      const segX = seg * 50 - cameraX;
-      const segY = groundHeightAt(seg * 50) - cameraY;
-      if (segX > -20 && segX < canvas.width + 20) {
-        ctx.fillRect(segX - 2, segY - 8, 4, 8);
-        ctx.fillRect(segX + 8, segY - 6, 3, 6);
-        ctx.fillRect(segX - 8, segY - 5, 2, 5);
-      }
-    }
+  }
+  
+  ctx.font = `${snail.size}px serif`;
+  ctx.textBaseline = 'top';
+  const snailScreenX = snail.x - cameraX;
+  const snailScreenY = snail.y - cameraY;
+  ctx.fillText('🐌', snailScreenX, snailScreenY);
+  
+  ctx.shadowBlur = 0;
 
-    if (snail.flying) {
-      ctx.shadowColor = '#ffff00';
-      ctx.shadowBlur = 15;
-    }
-    
-    // Make snail completely black when consume the void is active
-    if (consumeVoidActive) {
-      ctx.fillStyle = '#000000';
-    } else {
-      ctx.fillStyle = '#9acd32';
-    }
-    
-    ctx.font = `${snail.size}px serif`;
-    ctx.textBaseline = 'top';
-    const snailScreenX = snail.x - cameraX;
-    const snailScreenY = snail.y - cameraY;
-    ctx.fillText('🐌', snailScreenX, snailScreenY);
-    
-    ctx.shadowBlur = 0;
-
-    if (snail.flying && Math.abs(snail.vx) > 8) {
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-      ctx.lineWidth = 2;
-      for (let i = 0; i < 5; i++) {
-        const lineX = snailScreenX - (i + 1) * 10;
-        const lineY = snailScreenY + snail.size/2 + (Math.random() - 0.5) * 20;
-        ctx.beginPath();
-        ctx.moveTo(lineX, lineY);
-        ctx.lineTo(lineX - 15, lineY);
-        ctx.stroke();
-      }
+  if (snail.flying && Math.abs(snail.vx) > 8) {
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 5; i++) {
+      const lineX = snailScreenX - (i + 1) * 10;
+      const lineY = snailScreenY + snail.size/2 + (Math.random() - 0.5) * 20;
+      ctx.beginPath();
+      ctx.moveTo(lineX, lineY);
+      ctx.lineTo(lineX - 15, lineY);
+      ctx.stroke();
     }
   }
+  
+  // Draw particles
+  drawParticles();
+}
 
-  function gameLoop(t) {
-    if (!lastTime) lastTime = t;
-    const delta = (t - lastTime) / 16.666;
-    lastTime = t;
+function gameLoop(t) {
+  if (!lastTime) lastTime = t;
+  const delta = (t - lastTime) / 16.666;
+  lastTime = t;
 
-    update(delta);
-    draw();
+  update(delta);
+  updateParticles();
+  draw();
 
-    requestAnimationFrame(gameLoop);
-  }
+  requestAnimationFrame(gameLoop);
+}
 
-  function updateDistance() {
-    distanceSpan.textContent = distance.toFixed(2);
-  }
+function updateDistance() {
+  distanceSpan.textContent = distance.toFixed(2);
+}
 
-  function updateMoney() {
-    moneySpan.textContent = money;
-    updateUpgradeButtons();
-  }
+function updateMoney() {
+  moneySpan.textContent = money;
+  updateUpgradeButtons();
+}
+
+function updateLettuceJuice() {
+  lettuceJuiceSpan.textContent = lettuceJuice;
+  updateUpgradeButtons();
+}
+
+function updateStats() {
+  flightsSpan.textContent = totalFlights;
+}
 
 function checkAchievements() {
   const ach = achievements;
@@ -822,6 +1226,10 @@ function checkAchievements() {
   if (!ach.collector.unlocked && totalEarned >= 1000) {
     unlockAchievement('collector');
   }
+  
+  if (!ach.bouncer.unlocked && bounceCount >= 10) {
+    unlockAchievement('bouncer');
+  }
 }
 
 function unlockAchievement(key) {
@@ -837,6 +1245,7 @@ function unlockAchievement(key) {
 function showAchievementNotification(achievement) {
   // Create notification element
   const notification = document.createElement('div');
+  notification.id = 'achievementNotification';
   notification.style.cssText = `
     position: fixed; top: 20px; right: 20px; z-index: 9999;
     background: linear-gradient(135deg, #ffd700, #ffed4e);
@@ -858,165 +1267,222 @@ function showAchievementNotification(achievement) {
   setTimeout(() => document.body.removeChild(notification), 4500);
 }
 
-  // Upgrade button handlers
-  powerUpBtn.onclick = () => {
-    if (money >= catapultPowerCost) {
-      money -= catapultPowerCost;
-      catapultPower += 5;
-      catapultPowerCost = Math.floor(catapultPowerCost * 1.4);
-      powerUpBtn.querySelector('#powerCost').textContent = catapultPowerCost;
-      updateMoney();
-    }
-  };
-
-  gravityUpBtn.onclick = () => {
-    if (money >= gravityCost && gravity > 0.2) {
-      money -= gravityCost;
-      gravity -= 0.1;
-      gravityCost = Math.floor(gravityCost * 1.4);
-      gravityUpBtn.querySelector('#gravityCost').textContent = gravityCost;
-      updateMoney();
-    }
-  };
-
-  airControlUpBtn.onclick = () => {
-    if (money >= airControlCost) {
-      money -= airControlCost;
-      airControl += 0.3;
-      airControlCost = Math.floor(airControlCost * 1.4);
-      airControlUpBtn.querySelector('#airControlCost').textContent = airControlCost;
-      updateMoney();
-    }
-  };
-
-  magnetUpBtn.onclick = () => {
-    if (money >= magnetCost) {
-      money -= magnetCost;
-      coinMagnet += 1;
-      magnetCost = Math.floor(magnetCost * 1.4);
-      magnetUpBtn.querySelector('#magnetCost').textContent = magnetCost;
-      updateMoney();
-    }
-  };
-
-  bounceUpBtn.onclick = () => {
-    if (money >= bounceCost) {
-      money -= bounceCost;
-      bounceiness += 0.2;
-      bounceCost = Math.floor(bounceCost * 1.4);
-      bounceUpBtn.querySelector('#bounceCost').textContent = bounceCost;
-      updateMoney();
-    }
-  };
-
-  windUpBtn.onclick = () => {
-    if (money >= windCost) {
-      money -= windCost;
-      windResistance -= 0.1;
-      windCost = Math.floor(windCost * 1.4);
-      windUpBtn.querySelector('#windCost').textContent = windCost;
-      updateMoney();
-    }
-  };
-
-  turboUpBtn.onclick = () => {
-    if (money >= turboCost) {
-      money -= turboCost;
-      turboBoost += 1;
-      turboCost = Math.floor(turboCost * 1.4);
-      turboUpBtn.querySelector('#turboCost').textContent = turboCost;
-      updateMoney();
-    }
-  };
-
-  luckyUpBtn.onclick = () => {
-    if (money >= luckyCost) {
-      money -= luckyCost;
-      luckyCharm += 1;
-      luckyCost = Math.floor(luckyCost * 1.5);
-      luckyUpBtn.querySelector('#luckyCost').textContent = luckyCost;
-      updateMoney();
-    }
-  };
-
-  // Fat button handler
-  fatBtn.onclick = () => {
-    if (money >= fatCost && !fatActive) {
-      money -= fatCost;
-      fatActive = true;
-      snail.size *= fatMultiplier;
-      fatBtn.innerHTML = '⚖️ Fat Snail<br><small>Owned!</small>';
-      fatBtn.disabled = true;
-      updateMoney();
-      updateUpgradeButtons();
-    }
-  };
-
-  // Speed Force button handler
-  speedForceBtn.onclick = () => {
-    if (money >= 100000000 && !speedForceActive) {
-      money -= 100000000;
-      speedForceActive = true;
-      speedForceBtn.innerHTML = '⚡ Entered the Speed Force<br><small>Owned!</small>';
-      speedForceBtn.disabled = true;
-      updateMoney();
-      updateUpgradeButtons();
-    }
-  };
-
-  // Consume the Void button handler
-  consumeVoidBtn.onclick = () => {
-    if (money >= 15000000000000000 && !consumeVoidActive) {
-      money -= 15000000000000000;
-      consumeVoidActive = true;
-      consumeVoidBtn.innerHTML = '🌀 Consumed the Void<br><small>Owned!</small>';
-      consumeVoidBtn.disabled = true;
-      updateMoney();
-      updateUpgradeButtons();
-    }
-  };
-
-  function updateUpgradeButtons() {
-    powerUpBtn.disabled = money < catapultPowerCost;
-    gravityUpBtn.disabled = money < gravityCost || gravity <= 0.2;
-    airControlUpBtn.disabled = money < airControlCost;
-    magnetUpBtn.disabled = money < magnetCost;
-    bounceUpBtn.disabled = money < bounceCost;
-    windUpBtn.disabled = money < windCost || windResistance <= 0.3;
-    turboUpBtn.disabled = money < turboCost;
-    luckyUpBtn.disabled = money < luckyCost;
-    fatBtn.disabled = money < fatCost || fatActive;
-    speedForceBtn.disabled = money < 100000000 || speedForceActive;
-    consumeVoidBtn.disabled = money < 15000000000000000 || consumeVoidActive;
+// Upgrade button handlers
+powerUpBtn.onclick = () => {
+  if (money >= catapultPowerCost) {
+    money -= catapultPowerCost;
+    catapultPower += 5;
+    catapultPowerCost = Math.floor(catapultPowerCost * 1.4);
+    powerUpBtn.querySelector('#powerCost').textContent = catapultPowerCost;
+    updateMoney();
   }
+};
 
-  // Keyboard input
-  window.addEventListener('keydown', (e) => {
-    keys[e.key] = true;
-  });
+gravityUpBtn.onclick = () => {
+  if (money >= gravityCost && gravity > 0.2) {
+    money -= gravityCost;
+    gravity -= 0.1;
+    gravityCost = Math.floor(gravityCost * 1.4);
+    gravityUpBtn.querySelector('#gravityCost').textContent = gravityCost;
+    updateMoney();
+  }
+};
+
+airControlUpBtn.onclick = () => {
+  if (money >= airControlCost) {
+    money -= airControlCost;
+    airControl += 0.3;
+    airControlCost = Math.floor(airControlCost * 1.4);
+    airControlUpBtn.querySelector('#airControlCost').textContent = airControlCost;
+    updateMoney();
+  }
+};
+
+magnetUpBtn.onclick = () => {
+  if (money >= magnetCost) {
+    money -= magnetCost;
+    coinMagnet += 1;
+    magnetCost = Math.floor(magnetCost * 1.4);
+    magnetUpBtn.querySelector('#magnetCost').textContent = magnetCost;
+    updateMoney();
+  }
+};
+
+bounceUpBtn.onclick = () => {
+  if (money >= bounceCost) {
+    money -= bounceCost;
+    bounceiness += 0.2;
+    bounceCost = Math.floor(bounceCost * 1.4);
+    bounceUpBtn.querySelector('#bounceCost').textContent = bounceCost;
+    updateMoney();
+  }
+};
+
+windUpBtn.onclick = () => {
+  if (money >= windCost) {
+    money -= windCost;
+    windResistance -= 0.1;
+    windCost = Math.floor(windCost * 1.4);
+    windUpBtn.querySelector('#windCost').textContent = windCost;
+    updateMoney();
+  }
+};
+
+turboUpBtn.onclick = () => {
+  if (money >= turboCost) {
+    money -= turboCost;
+    turboBoost += 1;
+    turboCost = Math.floor(turboCost * 1.4);
+    turboUpBtn.querySelector('#turboCost').textContent = turboCost;
+    updateMoney();
+  }
+};
+
+luckyUpBtn.onclick = () => {
+  if (money >= luckyCost) {
+    money -= luckyCost;
+    luckyCharm += 1;
+    luckyCost = Math.floor(luckyCost * 1.5);
+    luckyUpBtn.querySelector('#luckyCost').textContent = luckyCost;
+    updateMoney();
+  }
+};
+
+// Fat button handler
+fatBtn.onclick = () => {
+  if (money >= fatCost && !fatActive) {
+    money -= fatCost;
+    fatActive = true;
+    snail.size *= fatMultiplier;
+    fatBtn.innerHTML = '⚖️ Fat Snail<br><small>Owned!</small>';
+    fatBtn.disabled = true;
+    updateMoney();
+    updateUpgradeButtons();
+  }
+};
+
+// Speed Force button handler
+speedForceBtn.onclick = () => {
+  if (money >= 100000000 && !speedForceActive) {
+    money -= 100000000;
+    speedForceActive = true;
+    speedForceBtn.innerHTML = '⚡ Entered the Speed Force<br><small>Owned!</small>';
+    speedForceBtn.disabled = true;
+    updateMoney();
+    updateUpgradeButtons();
+  }
+};
+
+// Consume the Void button handler
+consumeVoidBtn.onclick = () => {
+  if (lettuceJuice >= 15000000 && !consumeVoidActive) {
+    lettuceJuice -= 15000000;
+    consumeVoidActive = true;
+    consumeVoidBtn.innerHTML = '🌀 Consumed the Void<br><small>Owned!</small>';
+    consumeVoidBtn.disabled = true;
+    updateLettuceJuice();
+    updateUpgradeButtons();
+  }
+};
+
+// Rebirth upgrade handlers
+superStrengthBtn.onclick = () => {
+  const cost = superStrengthBaseCost * Math.pow(2, superStrengthLevel);
+  if (lettuceJuice >= cost) {
+    lettuceJuice -= cost;
+    superStrengthLevel++;
+    superStrengthBtn.querySelector('#superStrengthCost').textContent = cost * 2;
+    updateLettuceJuice();
+    updateUpgradeButtons();
+    
+    // Create visual effect
+    createParticles(snail.x, snail.y, '#9370db', 30);
+  }
+};
+
+wealthBtn.onclick = () => {
+  const cost = wealthBaseCost * Math.pow(2, wealthLevel);
+  if (lettuceJuice >= cost) {
+    lettuceJuice -= cost;
+    wealthLevel++;
+    wealthBtn.querySelector('#wealthCost').textContent = cost * 2;
+    updateLettuceJuice();
+    updateUpgradeButtons();
+    
+    // Create visual effect
+    createParticles(snail.x, snail.y, '#9370db', 40);
+  }
+};
+
+choiceBtn.onclick = () => {
+  const cost = choiceBaseCost * Math.pow(2, choiceLevel);
+  if (lettuceJuice >= cost) {
+    lettuceJuice -= cost;
+    choiceLevel++;
+    choiceBtn.querySelector('#choiceCost').textContent = cost * 2;
+    updateLettuceJuice();
+    updateUpgradeButtons();
+    
+    // Create visual effect
+    createParticles(snail.x, snail.y, '#9370db', 50);
+  }
+};
+
+function updateUpgradeButtons() {
+  powerUpBtn.disabled = money < catapultPowerCost;
+  gravityUpBtn.disabled = money < gravityCost || gravity <= 0.2;
+  airControlUpBtn.disabled = money < airControlCost;
+  magnetUpBtn.disabled = money < magnetCost;
+  bounceUpBtn.disabled = money < bounceCost;
+  windUpBtn.disabled = money < windCost || windResistance <= 0.3;
+  turboUpBtn.disabled = money < turboCost;
+  luckyUpBtn.disabled = money < luckyCost;
+  fatBtn.disabled = money < fatCost || fatActive;
+  speedForceBtn.disabled = money < 100000000 || speedForceActive;
+  consumeVoidBtn.disabled = lettuceJuice < 15000000 || consumeVoidActive;
   
-  window.addEventListener('keyup', (e) => {
-    keys[e.key] = false;
-  });
+  // Rebirth upgrades
+  const superStrengthCost = superStrengthBaseCost * Math.pow(2, superStrengthLevel);
+  const wealthCost = wealthBaseCost * Math.pow(2, wealthLevel);
+  const choiceCost = choiceBaseCost * Math.pow(2, choiceLevel);
+  
+  superStrengthBtn.disabled = lettuceJuice < superStrengthCost;
+  wealthBtn.disabled = lettuceJuice < wealthCost;
+  choiceBtn.disabled = lettuceJuice < choiceCost;
+  
+  // Update cost displays
+  superStrengthBtn.querySelector('#superStrengthCost').textContent = superStrengthCost;
+  wealthBtn.querySelector('#wealthCost').textContent = wealthCost;
+  choiceBtn.querySelector('#choiceCost').textContent = choiceCost;
+}
 
-  // Window resize handler
-  window.addEventListener('resize', () => {
-    setTimeout(resizeCanvas, 100);
-  });
+// Keyboard input
+window.addEventListener('keydown', (e) => {
+  keys[e.key] = true;
+});
+  
+window.addEventListener('keyup', (e) => {
+  keys[e.key] = false;
+});
 
-  // Prevent double-tap zoom
-  let lastTouchEnd = 0;
-  document.addEventListener('touchend', function (event) {
-    const now = (new Date()).getTime();
-    if (now - lastTouchEnd <= 300) {
-      event.preventDefault();
-    }
-    lastTouchEnd = now;
-  }, false);
+// Window resize handler
+window.addEventListener('resize', () => {
+  setTimeout(resizeCanvas, 100);
+});
 
-  let lastTime;
-  updateUpgradeButtons();
-  requestAnimationFrame(gameLoop);
+// Prevent double-tap zoom
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  const now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+let lastTime;
+updateUpgradeButtons();
+requestAnimationFrame(gameLoop);
 
 })();
 </script>
