@@ -208,7 +208,7 @@
     transform: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
-  
+
   /* Touch controls for mobile */
   #touchControls {
     position: absolute;
@@ -529,6 +529,257 @@
     font-weight: bold;
     color: #2d3748;
   }
+  
+  /* Transcend mode */
+  #transcendMode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  
+  #transcendMode.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  #transcendMode h1 {
+    color: #ffd700;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  #transcendButton {
+    background: linear-gradient(135deg, #805ad5, #6b46c1);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    font-size: 2rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+  
+  #transcendButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  }
+  
+  #transcendButton:active {
+    transform: scale(0.95);
+  }
+  
+  #transcendInfo {
+    color: white;
+    text-align: center;
+    max-width: 80%;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  /* Win screen */
+  #winScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f9d58, #00c853);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  
+  #winScreen.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  #winScreen h1 {
+    color: white;
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+  
+  #winScreen p {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    max-width: 80%;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 5px rgba(0,0,0,0.3);
+  }
+  
+  #restartButton {
+    background: linear-gradient(135deg, #ffd700, #ff9800);
+    color: #2d3748;
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    font-weight: bold;
+  }
+  
+  #restartButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  }
+  
+  /* Transcend animation */
+  .transcend-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+  }
+  
+  .transcend-snail {
+    position: absolute;
+    font-size: 60px;
+    animation: transcend 2s forwards;
+    z-index: 1000;
+  }
+  
+  @keyframes transcend {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    30% {
+      transform: translate(0, -100px) scale(1.5);
+      opacity: 0.8;
+    }
+    60% {
+      transform: translate(0, -200px) scale(2);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(0, -300px) scale(3);
+      opacity: 0;
+    }
+  }
+  
+  .transcend-glow {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+    animation: glow 2s infinite;
+    z-index: 999;
+  }
+  
+  @keyframes glow {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+  }
+  
+  /* Reset progress modal */
+  #resetModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  #resetModal.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  #resetContent {
+    background: linear-gradient(135deg, #2d3748, #1a202c);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 90%;
+    width: 500px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  #resetContent h2 {
+    margin-top: 0;
+    color: #ff6b6b;
+  }
+  
+  #resetContent p {
+    margin: 15px 0;
+    line-height: 1.6;
+  }
+  
+  #resetContent button {
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 10px 10px;
+    transition: all 0.2s ease;
+  }
+  
+  #resetContent button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  #cancelResetBtn {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+  }
+  
+  #confirmResetBtn {
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+  }
 </style>
 </head>
 <body>
@@ -541,6 +792,9 @@
     <div class="touch-btn" id="touchUp">↑</div>
     <div class="touch-btn" id="touchRight">→</div>
   </div>
+  
+  <!-- Transcend animation elements -->
+  <div id="transcendAnimation" class="transcend-animation"></div>
 </div>
 
 <div id="ui">
@@ -571,6 +825,7 @@
       <button id="launchBtn">fling thy mollusk</button>
       <button id="endFlightBtn" disabled>End Flight</button>
       <button id="rebirthBtn">Rebirth</button>
+      <button id="resetProgressBtn">Reset Progress</button>
     </div>
     
     <div id="upgradeControls">
@@ -611,8 +866,195 @@
   </div>
 </div>
 
+<div id="resetModal">
+  <div id="resetContent">
+    <h2>⚠️ Reset Progress ⚠️</h2>
+    <p>Are you sure you want to reset ALL progress?</p>
+    <p>This will delete everything including lettuce juice!</p>
+    <button id="cancelResetBtn">Cancel</button>
+    <button id="confirmResetBtn">Confirm Reset</button>
+  </div>
+</div>
+
+<div id="transcendMode">
+  <h1>Transcendence</h1>
+  <button id="transcendButton">Transcend</button>
+  <div id="transcendInfo">
+    <p>You've transcended the physical realm of lettuce and distance!</p>
+    <p>Press the button to reset everything and start anew.</p>
+  </div>
+</div>
+
+<div id="winScreen">
+  <h1>🎉 You Win! 🎉</h1>
+  <p>You have transcended the physical realm of lettuce and distance!</p>
+  <button id="restartButton">Play Again</button>
+</div>
+
 <script>
 (() => {
+  // Save/load system
+  const SAVE_KEY = 'flumgus_save';
+  const CRASH_KEY = 'flumgus_crash';
+  
+  // Check for crash state
+  const crashDetected = localStorage.getItem(CRASH_KEY) === 'true';
+  if (crashDetected) {
+    // Show transcend mode
+    document.getElementById('transcendMode').classList.add('active');
+    // Show "???\" for all stats
+    document.getElementById('distance').textContent = '???';
+    document.getElementById('money').textContent = '???';
+    document.getElementById('lettuceJuice').textContent = '???';
+    document.getElementById('flights').textContent = '???';
+    
+    // Disable all controls except transcend button
+    document.querySelectorAll('#upgradeControls button, #mainControls button').forEach(btn => {
+      btn.disabled = true;
+    });
+    
+    // Add event listener to transcend button for crash recovery
+    document.getElementById('transcendButton').addEventListener('click', () => {
+      // Clear all save data
+      localStorage.removeItem(SAVE_KEY);
+      localStorage.removeItem(CRASH_KEY);
+      
+      // Reset to normal game state
+      document.getElementById('transcendMode').classList.remove('active');
+      document.getElementById('distance').textContent = '0';
+      document.getElementById('money').textContent = '0';
+      document.getElementById('lettuceJuice').textContent = '0';
+      document.getElementById('flights').textContent = '0';
+      
+      // Re-enable all controls
+      document.querySelectorAll('#upgradeControls button, #mainControls button').forEach(btn => {
+        btn.disabled = false;
+      });
+      
+      // Reset game state
+      resetGame();
+    });
+    
+    return; // Exit early to avoid initializing the game
+  }
+  
+  // Set up crash detection
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem(CRASH_KEY, 'true');
+  });
+  
+  // Clear crash flag on page load
+  window.addEventListener('load', () => {
+    localStorage.removeItem(CRASH_KEY);
+  });
+  
+  // Save game state
+  function saveGame() {
+    const gameState = {
+      money: money,
+      lettuceJuice: lettuceJuice,
+      distance: distance,
+      speedForceActive: speedForceActive,
+      catapultPower: catapultPower,
+      gravity: gravity,
+      airControl: airControl,
+      coinMagnet: coinMagnet,
+      bounceiness: bounceiness,
+      windResistance: windResistance,
+      turboBoost: turboBoost,
+      luckyCharm: luckyCharm,
+      snail: snail,
+      cameraX: cameraX,
+      cameraY: cameraY,
+      totalEarned: totalEarned,
+      totalDistance: totalDistance,
+      bounceCount: bounceCount,
+      maxDistance: maxDistance,
+      totalFlights: totalFlights,
+      rebirths: rebirths,
+      superStrengthLevel: superStrengthLevel,
+      wealthLevel: wealthLevel,
+      choiceLevel: choiceLevel,
+      consumeVoidActive: consumeVoidActive,
+      fatActive: fatActive,
+      achievements: achievements,
+      snailCost: snailCost,
+      snailUpgradeBought: snailUpgradeBought
+    };
+    
+    localStorage.setItem(SAVE_KEY, JSON.stringify(gameState));
+  }
+  
+  // Load game state
+  function loadGame() {
+    const saved = localStorage.getItem(SAVE_KEY);
+    if (saved) {
+      try {
+        const gameState = JSON.parse(saved);
+        
+        // Restore all game state
+        money = gameState.money;
+        lettuceJuice = gameState.lettuceJuice;
+        distance = gameState.distance;
+        speedForceActive = gameState.speedForceActive;
+        catapultPower = gameState.catapultPower;
+        gravity = gameState.gravity;
+        airControl = gameState.airControl;
+        coinMagnet = gameState.coinMagnet;
+        bounceiness = gameState.bounceiness;
+        windResistance = gameState.windResistance;
+        turboBoost = gameState.turboBoost;
+        luckyCharm = gameState.luckyCharm;
+        snail = gameState.snail;
+        cameraX = gameState.cameraX;
+        cameraY = gameState.cameraY;
+        totalEarned = gameState.totalEarned;
+        totalDistance = gameState.totalDistance;
+        bounceCount = gameState.bounceCount;
+        maxDistance = gameState.maxDistance;
+        totalFlights = gameState.totalFlights;
+        rebirths = gameState.rebirths;
+        superStrengthLevel = gameState.superStrengthLevel;
+        wealthLevel = gameState.wealthLevel;
+        choiceLevel = gameState.choiceLevel;
+        consumeVoidActive = gameState.consumeVoidActive;
+        fatActive = gameState.fatActive;
+        achievements = gameState.achievements;
+        snailCost = gameState.snailCost;
+        snailUpgradeBought = gameState.snailUpgradeBought;
+        
+        // Update UI
+        updateMoney();
+        updateLettuceJuice();
+        updateDistance();
+        updateStats();
+        updateUpgradeButtons();
+        
+        // Update button states
+        if (fatActive) {
+          fatBtn.innerHTML = '⚖️ Fat Snail<br><small>Owned!</small>';
+          fatBtn.disabled = true;
+        }
+        
+        if (speedForceActive) {
+          speedForceBtn.innerHTML = '⚡ Entered the Speed Force<br><small>Owned!</small>';
+          speedForceBtn.disabled = true;
+        }
+        
+        if (consumeVoidActive) {
+          consumeVoidBtn.innerHTML = '🌀 Consumed the Void<br><small>Owned!</small>';
+          consumeVoidBtn.disabled = true;
+        }
+        
+        return true;
+      } catch (e) {
+        console.error('Failed to load game state:', e);
+        return false;
+      }
+    }
+    return false;
+  }
+  
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
 
@@ -623,6 +1065,7 @@
   const endFlightBtn = document.getElementById('endFlightBtn');
   const rebirthBtn = document.getElementById('rebirthBtn');
   const flightsSpan = document.getElementById('flights');
+  const resetProgressBtn = document.getElementById('resetProgressBtn');
 
   const powerUpBtn = document.getElementById('powerUpBtn');
   const gravityUpBtn = document.getElementById('gravityUpBtn');
@@ -650,6 +1093,19 @@
   const confirmRebirthBtn = document.getElementById('confirmRebirth');
   const cancelRebirthBtn = document.getElementById('cancelRebirthBtn');
 
+  // Reset progress modal
+  const resetModal = document.getElementById('resetModal');
+  const cancelResetBtn = document.getElementById('cancelResetBtn');
+  const confirmResetBtn = document.getElementById('confirmResetBtn');
+
+  // Transcend elements
+  const transcendMode = document.getElementById('transcendMode');
+  const transcendButton = document.getElementById('transcendButton');
+  const winScreen = document.getElementById('winScreen');
+  const restartButton = document.getElementById('restartButton');
+  const transcendAnimation = document.getElementById('transcendAnimation');
+
+  // Game state variables
   let money = 0;
   let lettuceJuice = 0;
   let distance = 0;
@@ -905,10 +1361,17 @@ function setupTouchControls() {
   });
 }
 
+// Initialize game
 resizeCanvas();
 resetSnail();
 initClouds();
 setupTouchControls();
+
+// Load game state if available
+loadGame();
+
+// Save game periodically
+setInterval(saveGame, 30000); // Save every 30 seconds
 
 launchBtn.onclick = () => {
   if (snail.flying) return;
@@ -987,6 +1450,86 @@ confirmRebirthBtn.onclick = () => {
   // Update rebirth count
   rebirths++;
   updateStats();
+};
+
+// Reset progress functionality
+resetProgressBtn.onclick = () => {
+  resetModal.classList.add('active');
+};
+
+cancelResetBtn.onclick = () => {
+  resetModal.classList.remove('active');
+};
+
+confirmResetBtn.onclick = () => {
+  // Clear all save data
+  localStorage.removeItem(SAVE_KEY);
+  localStorage.removeItem(CRASH_KEY);
+  
+  // Reset to normal game state
+  resetModal.classList.remove('active');
+  document.getElementById('distance').textContent = '0';
+  document.getElementById('money').textContent = '0';
+  document.getElementById('lettuceJuice').textContent = '0';
+  document.getElementById('flights').textContent = '0';
+  
+  // Reset game state
+  resetGame();
+};
+
+// Transcend functionality
+transcendButton.onclick = () => {
+  // Hide transcend mode
+  transcendMode.classList.remove('active');
+  
+  // Show transcend animation
+  showTranscendAnimation();
+};
+
+function showTranscendAnimation() {
+  // Create transcend animation elements
+  transcendAnimation.style.display = 'block';
+  
+  // Create snail element
+  const snailElement = document.createElement('div');
+  snailElement.className = 'transcend-snail';
+  snailElement.textContent = '🐌';
+  snailElement.style.left = `${snail.x - cameraX}px`;
+  snailElement.style.top = `${snail.y - cameraY}px`;
+  transcendAnimation.appendChild(snailElement);
+  
+  // Create glow effect
+  const glowElement = document.createElement('div');
+  glowElement.className = 'transcend-glow';
+  glowElement.style.left = `${snail.x - cameraX - 50}px`;
+  glowElement.style.top = `${snail.y - cameraY - 50}px`;
+  transcendAnimation.appendChild(glowElement);
+  
+  // Animate the snail
+  setTimeout(() => {
+    // Remove the animation elements
+    transcendAnimation.innerHTML = '';
+    transcendAnimation.style.display = 'none';
+    
+    // Show win screen
+    winScreen.classList.add('active');
+  }, 2000);
+}
+
+restartButton.onclick = () => {
+  // Clear all save data
+  localStorage.removeItem(SAVE_KEY);
+  localStorage.removeItem(CRASH_KEY);
+  
+  // Reset to normal game state
+  winScreen.classList.remove('active');
+  document.getElementById('distance').textContent = '0';
+  document.getElementById('money').textContent = '0';
+  document.getElementById('lettuceJuice').textContent = '0';
+  document.getElementById('flights').textContent = '0';
+  
+  // Reset game state
+  resetGame();
 };
 
 function update(delta) {
@@ -1483,6 +2026,74 @@ document.addEventListener('touchend', function (event) {
 let lastTime;
 updateUpgradeButtons();
 requestAnimationFrame(gameLoop);
+
+// Reset game function for transcend mode
+function resetGame() {
+  // Reset all game variables to initial state
+  money = 0;
+  lettuceJuice = 0;
+  distance = 0;
+  speedForceActive = false;
+  catapultPower = 15;
+  gravity = 0.8;
+  airControl = 0;
+  coinMagnet = 0;
+  bounceiness = 0.5;
+  windResistance = 1;
+  turboBoost = 0;
+  luckyCharm = 0;
+  snailUpgradeBought = false;
+  achievements = {
+    firstFlight: { unlocked: false, name: "First Flight", desc: "Launch your first snail", reward: 50 },
+    distance100: { unlocked: false, name: "Century Mark", desc: "Travel 100 Peter Griffins", reward: 100 },
+    distance500: { unlocked: false, name: "Long Hauler", desc: "Travel 500 Peter Griffins", reward: 250 },
+    collector: { unlocked: false, name: "Lettuce Collector", desc: "Earn 1000 lbs of lettuce", reward: 500 },
+    powerUp: { unlocked: false, name: "Power Hungry", desc: "Collect a power-up", reward: 75 },
+    bouncer: { unlocked: false, name: "Bouncy Castle", desc: "Bounce 10 times in one flight", reward: 200 }
+  };
+  totalEarned = 0;
+  totalDistance = 0;
+  bounceCount = 0;
+  maxDistance = 0;
+  totalFlights = 0;
+  rebirths = 0;
+  superStrengthLevel = 0;
+  wealthLevel = 0;
+  choiceLevel = 0;
+  consumeVoidActive = false;
+  fatActive = false;
+  
+  // Reset upgrade costs
+  catapultPowerCost = 10;
+  gravityCost = 15;
+  airControlCost = 25;
+  magnetCost = 30;
+  bounceCost = 50;
+  windCost = 75;
+  turboCost = 100;
+  luckyCost = 200;
+  
+  // Reset UI
+  updateMoney();
+  updateLettuceJuice();
+  updateDistance();
+  updateStats();
+  updateUpgradeButtons();
+  
+  // Reset snail
+  resetSnail();
+  
+  // Reset buttons
+  fatBtn.innerHTML = 'Fat<br><small>Cost: <span id=\"fatCost\">1000000</span> lbs</small>';
+  fatBtn.disabled = false;
+  speedForceBtn.innerHTML = 'Enter the Speed Force<br><small>Cost: <span id=\"speedForceCost\">100000000</span> lbs</small>';
+  speedForceBtn.disabled = false;
+  consumeVoidBtn.innerHTML = 'Consume the Void<br><small>Cost: <span id=\"consumeVoidCost\">15000000</span> gallons</small>';
+  consumeVoidBtn.disabled = false;
+  
+  // Reset clouds
+  initClouds();
+}
 
 })();
 </script>
