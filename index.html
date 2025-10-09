@@ -530,66 +530,6 @@
     color: #2d3748;
   }
   
-  /* Transcend mode */
-  #transcendMode {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-  }
-  
-  #transcendMode.active {
-    opacity: 1;
-    pointer-events: all;
-  }
-  
-  #transcendMode h1 {
-    color: #ffd700;
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  #transcendButton {
-    background: linear-gradient(135deg, #805ad5, #6b46c1);
-    color: white;
-    border: none;
-    padding: 20px 40px;
-    font-size: 2rem;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  }
-  
-  #transcendButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-  }
-  
-  #transcendButton:active {
-    transform: scale(0.95);
-  }
-  
-  #transcendInfo {
-    color: white;
-    text-align: center;
-    max-width: 80%;
-    margin-top: 2rem;
-    font-size: 1.2rem;
-    line-height: 1.6;
-  }
-  
   /* Win screen */
   #winScreen {
     position: fixed;
@@ -597,7 +537,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #0f9d58, #00c853);
+    background: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -614,38 +554,38 @@
   }
   
   #winScreen h1 {
-    color: white;
+    color: #fff;
     font-size: 4rem;
     text-align: center;
     margin-bottom: 1rem;
-    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
   }
   
   #winScreen p {
-    color: white;
+    color: #fff;
     font-size: 1.5rem;
     text-align: center;
     max-width: 80%;
     margin-bottom: 2rem;
-    text-shadow: 0 0 5px rgba(0,0,0,0.3);
+    text-shadow: 0 0 5px rgba(255,255,255,0.3);
   }
   
   #restartButton {
-    background: linear-gradient(135deg, #ffd700, #ff9800);
-    color: #2d3748;
-    border: none;
+    background: #fff;
+    color: #000;
+    border: 2px solid #fff;
     padding: 20px 40px;
     font-size: 1.5rem;
     border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 25px rgba(255,255,255,0.2);
     font-weight: bold;
   }
   
   #restartButton:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    box-shadow: 0 12px 30px rgba(255,255,255,0.3);
   }
   
   /* Transcend animation */
@@ -691,7 +631,7 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
     animation: glow 2s infinite;
     z-index: 999;
   }
@@ -876,19 +816,9 @@
   </div>
 </div>
 
-<div id="transcendMode">
-  <h1>Transcendence</h1>
-  <button id="transcendButton">Transcend</button>
-  <div id="transcendInfo">
-    <p>You've transcended the physical realm of lettuce and distance!</p>
-    <p>Press the button to reset everything and start anew.</p>
-  </div>
-</div>
-
 <div id="winScreen">
-  <h1>🎉 You Win! 🎉</h1>
-  <p>You have transcended the physical realm of lettuce and distance!</p>
-  <button id="restartButton">Play Again</button>
+  <h1>thanks for playing</h1>
+  <p>the snail has transcended, now free of its earthly burdens.</p>
 </div>
 
 <script>
@@ -901,26 +831,27 @@
   const crashDetected = localStorage.getItem(CRASH_KEY) === 'true';
   if (crashDetected) {
     // Show transcend mode
-    document.getElementById('transcendMode').classList.add('active');
-    // Show "???\" for all stats
+    document.getElementById('winScreen').classList.add('active');
+    
+    // Show "???" for all stats
     document.getElementById('distance').textContent = '???';
     document.getElementById('money').textContent = '???';
     document.getElementById('lettuceJuice').textContent = '???';
     document.getElementById('flights').textContent = '???';
     
-    // Disable all controls except transcend button
+    // Disable all controls except restart button
     document.querySelectorAll('#upgradeControls button, #mainControls button').forEach(btn => {
       btn.disabled = true;
     });
     
-    // Add event listener to transcend button for crash recovery
-    document.getElementById('transcendButton').addEventListener('click', () => {
+    // Add event listener to restart button for crash recovery
+    document.getElementById('restartButton').addEventListener('click', () => {
       // Clear all save data
       localStorage.removeItem(SAVE_KEY);
       localStorage.removeItem(CRASH_KEY);
       
       // Reset to normal game state
-      document.getElementById('transcendMode').classList.remove('active');
+      document.getElementById('winScreen').classList.remove('active');
       document.getElementById('distance').textContent = '0';
       document.getElementById('money').textContent = '0';
       document.getElementById('lettuceJuice').textContent = '0';
@@ -1098,9 +1029,7 @@
   const cancelResetBtn = document.getElementById('cancelResetBtn');
   const confirmResetBtn = document.getElementById('confirmResetBtn');
 
-  // Transcend elements
-  const transcendMode = document.getElementById('transcendMode');
-  const transcendButton = document.getElementById('transcendButton');
+  // Win screen
   const winScreen = document.getElementById('winScreen');
   const restartButton = document.getElementById('restartButton');
   const transcendAnimation = document.getElementById('transcendAnimation');
@@ -1477,43 +1406,10 @@ confirmResetBtn.onclick = () => {
   resetGame();
 };
 
-// Transcend functionality
-transcendButton.onclick = () => {
-  // Hide transcend mode
-  transcendMode.classList.remove('active');
-  
-  // Show transcend animation
-  showTranscendAnimation();
-};
-
+// Transcend functionality - simplified to just show win screen
 function showTranscendAnimation() {
-  // Create transcend animation elements
-  transcendAnimation.style.display = 'block';
-  
-  // Create snail element
-  const snailElement = document.createElement('div');
-  snailElement.className = 'transcend-snail';
-  snailElement.textContent = '🐌';
-  snailElement.style.left = `${snail.x - cameraX}px`;
-  snailElement.style.top = `${snail.y - cameraY}px`;
-  transcendAnimation.appendChild(snailElement);
-  
-  // Create glow effect
-  const glowElement = document.createElement('div');
-  glowElement.className = 'transcend-glow';
-  glowElement.style.left = `${snail.x - cameraX - 50}px`;
-  glowElement.style.top = `${snail.y - cameraY - 50}px`;
-  transcendAnimation.appendChild(glowElement);
-  
-  // Animate the snail
-  setTimeout(() => {
-    // Remove the animation elements
-    transcendAnimation.innerHTML = '';
-    transcendAnimation.style.display = 'none';
-    
-    // Show win screen
-    winScreen.classList.add('active');
-  }, 2000);
+  // Show win screen immediately
+  winScreen.classList.add('active');
 }
 
 restartButton.onclick = () => {
@@ -2027,7 +1923,7 @@ let lastTime;
 updateUpgradeButtons();
 requestAnimationFrame(gameLoop);
 
-// Reset game function for transcend mode
+// Reset game function for crash recovery
 function resetGame() {
   // Reset all game variables to initial state
   money = 0;
@@ -2084,11 +1980,11 @@ function resetGame() {
   resetSnail();
   
   // Reset buttons
-  fatBtn.innerHTML = 'Fat<br><small>Cost: <span id=\"fatCost\">1000000</span> lbs</small>';
+  fatBtn.innerHTML = 'Fat<br><small>Cost: <span id="fatCost">1000000</span> lbs</small>';
   fatBtn.disabled = false;
-  speedForceBtn.innerHTML = 'Enter the Speed Force<br><small>Cost: <span id=\"speedForceCost\">100000000</span> lbs</small>';
+  speedForceBtn.innerHTML = 'Enter the Speed Force<br><small>Cost: <span id="speedForceCost">100000000</span> lbs</small>';
   speedForceBtn.disabled = false;
-  consumeVoidBtn.innerHTML = 'Consume the Void<br><small>Cost: <span id=\"consumeVoidCost\">15000000</span> gallons</small>';
+  consumeVoidBtn.innerHTML = 'Consume the Void<br><small>Cost: <span id="consumeVoidCost">15000000</span> gallons</small>';
   consumeVoidBtn.disabled = false;
   
   // Reset clouds
